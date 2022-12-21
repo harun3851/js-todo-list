@@ -1,6 +1,7 @@
 document.getElementById('create-task-id').addEventListener('click', () => {
     const txt=getInputText()
     insertTaskIntoPage(txt)
+    saveTask(txt)
     emptyInputText()
 })
 const getInputText = function name(params){ 
@@ -29,4 +30,15 @@ const insertTaskIntoPage = (text) => {
 }
 const emptyInputText = () =>{
     document.getElementById('task-text').value=''
+}
+ 
+const saveTask = (txt) =>{
+    const tasks = JSON.parse(localStorage.getItem('tasks'))
+    if(tasks===null){
+        localStorage.setItem('tasks',JSON.stringify([txt])) 
+    }   else{
+        tasks.push(txt)
+        localStorage.setItem('tasks', JSON.stringify(tasks))
+    }
+    
 }
